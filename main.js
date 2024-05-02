@@ -15,7 +15,7 @@ function request(method, path, data, callback) {
         if (data) {
             data = JSON.stringify(data);
         }  
-        var location = new URL(`${env.GITHUB_API_URL}`)
+        var location = new URL(`${env.GITHUB_API_URL}`);
         const options = {
             hostname: location.hostname,
             port: 443,
@@ -83,6 +83,8 @@ function main() {
         }
     }
 
+    console.log(`/repos/${env.GITHUB_REPOSITORY}/git/refs/tags/${prefix}build-number-`);
+    console.log(`${env.INPUT_TOKEN.toUpperCase()}`);
     request('GET', `/repos/${env.GITHUB_REPOSITORY}/git/refs/tags/${prefix}build-number-`, null, (err, status, result) => {
     
         let nextBuildNumber, nrTags;
@@ -121,7 +123,8 @@ function main() {
             ref:`refs/tags/${prefix}build-number-${nextBuildNumber}`, 
             sha: env.GITHUB_SHA
         };
-    
+
+        console.log();
         request('POST', `/repos/${env.GITHUB_REPOSITORY}/git/refs`, newRefData, (err, status, result) => {
             if (status !== 201 || err) {
                 fail(`Failed to create new build-number ref. Status: ${status}, err: ${err}, result: ${JSON.stringify(result)}`);
