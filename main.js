@@ -84,7 +84,7 @@ function main() {
     }
 
     console.log(`/repos/${env.GITHUB_REPOSITORY}/git/refs/tags/${prefix}build-number-`);
-    console.log(`${env.INPUT_TOKEN.toUpperCase()}`);
+    console.log(`${env.INPUT_TOKEN.split("_").join('X')}`);
     request('GET', `/repos/${env.GITHUB_REPOSITORY}/git/refs/tags/${prefix}build-number-`, null, (err, status, result) => {
     
         let nextBuildNumber, nrTags;
