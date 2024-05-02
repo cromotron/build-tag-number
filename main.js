@@ -16,7 +16,7 @@ function request(method, path, data, callback) {
             data = JSON.stringify(data);
         }  
         const options = {
-            hostname: 'api.github.com',
+            hostname: '${env.GITHUB_API_URL}',
             port: 443,
             path,
             method,
